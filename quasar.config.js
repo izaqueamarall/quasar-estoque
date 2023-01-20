@@ -59,7 +59,11 @@ module.exports = configure(function (/* ctx */) {
         node: 'node16'
       },
 
-      vueRouterMode: 'history' // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
+      env: {
+        SUPABASE_URL: 'https://zxqzzusnhlmdqwzendbp.supabase.co',
+        SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4cXp6dXNuaGxtZHF3emVuZGJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzQwNjM1NzQsImV4cCI6MTk4OTYzOTU3NH0.RAT8FGOH4piGuZK4s0IBxH3wacVeLBMCroBmviCpe5k'
+      }
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
