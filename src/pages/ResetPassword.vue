@@ -6,10 +6,16 @@
 
                 <div class="col-md-10 col-sm-9 col-xs-11 q-gutter-y-md">
 
-                    <q-input label="Nova Senha" v-model="password" />
+                    <q-input
+                    label="Nova Senha"
+                    v-model="password"
+                    lazy-rules
+                    :rules="[val => (val && val.length >= 6) || 'Informe uma senha igual ou superior a 6 dígitos']"
+                    type="password"
+                    />
 
                     <div class="full-width q-pt-md q-gutter-y-sm">
-                        <q-btn label="Enviar e-mail de redefinição" color="primary" class="full-width" outline rounded
+                        <q-btn label="Enviar nova senha" color="primary" class="full-width" outline rounded
                             type="submit" />
 
                     </div>
@@ -23,12 +29,36 @@
 import { defineComponent, ref } from 'vue'
 import useAuthUser from 'src/composables/UseAuthUser'
 import { useRoute, useRouter } from 'vue-router'
+import useNotify from 'src/composables/UseNotify'
 
-
-export default defineComponent {
+export default defineComponent({
+  name: 'ResetPasswordPage',
   setup () {
+    const { resetPassword } = useAuthUser()
 
+    const { notifyError, notifySucess } = useNotify()
+
+    const route = useRoute()
+    const router = useRouter()
+    const token = route.query.token
+
+    const password = ref('')
+
+    const handlePasswordReset = async () => {
+      try {
+        await resetPassword(token, password.value)
+        notifySucess('Senha recuperada com sucesso!')
+        router.push({ name: 'login' })
+      } catch (error) {
+        notifyError(error.message)
+      }
+    }
+
+    return {
+      password,
+      handlePasswordReset
+    }
   }
-}
+})
 
 </script>

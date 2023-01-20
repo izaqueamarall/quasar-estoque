@@ -8,16 +8,24 @@
             <q-input
             label="Name"
             v-model="form.name"
+            lazy-rules
+            :rules="[val => (val && val.length > 0) || 'Informe seu nome']"
             />
 
             <q-input
             label="Email"
             v-model="form.email"
+            lazy-rules
+            :rules="[val => (val && val.length > 0) || 'Informe seu e-mail']"
+            type="email"
             />
 
             <q-input
             label="Password"
             v-model="form.password"
+            lazy-rules
+            :rules="[val => (val && val.length >= 6) || 'Informe uma senha igual ou superior a 6 dígitos']"
+            type="password"
             />
 
             <div class="full-width q-pt-md q-gutter-y-sm">
@@ -49,6 +57,7 @@
 import { defineComponent, ref } from 'vue'
 import useAuthUser from 'src/composables/UseAuthUser'
 import { useRouter } from 'vue-router'
+import useNotify from 'src/composables/UseNotify'
 
 export default defineComponent({
   name: 'RegisterPage',
@@ -56,6 +65,8 @@ export default defineComponent({
   setup () {
     const router = useRouter()
     const { register } = useAuthUser()
+
+    const { notifyError, notifySucess } = useNotify()
 
     const form = ref({
       name: '',
@@ -66,12 +77,13 @@ export default defineComponent({
     const handleRegister = async () => {
       try {
         await register(form.value)
+        notifySucess()
         router.push({
           name: 'email-confirmation',
           query: { email: form.value.email }
         })
       } catch (error) {
-        alert(error)
+        notifyError(error.message)
       }
     }
 

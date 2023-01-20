@@ -9,6 +9,9 @@
             <q-input
             label="Email"
             v-model="email"
+            lazy-rules
+            :rules="[val => (val && val.length > 0) || 'Informe seu e-mail']"
+            type="email"
             />
 
             <div class="full-width q-pt-md q-gutter-y-sm">
@@ -39,16 +42,23 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import useAuthUser from 'src/composables/UseAuthUser'
+import useNotify from 'src/composables/UseNotify'
 
 export default defineComponent({
   setup () {
     const { sendPasswordRestEmail } = useAuthUser()
 
+    const { notifyError, notifySucess } = useNotify()
+
     const email = ref('')
 
     const handleForgotPassword = async () => {
-      await sendPasswordRestEmail(email.value)
-      alert(`E-mail de redefinição de senha enviado para: ${email.value}`)
+      try {
+        await sendPasswordRestEmail(email.value)
+        notifySucess(`E-mail de redefinição de senha enviado para: ${email.value}`)
+      } catch (error) {
+        notifyError(error.message)
+      }
     }
 
     return {
