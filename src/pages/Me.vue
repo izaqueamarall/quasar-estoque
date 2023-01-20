@@ -1,7 +1,7 @@
 <template>
-  <q-page padding>
+  <q-page class="flex flex-center text-h5">
     <div v-if="user">
-      <p>Olá {{ user.email }}</p>
+      <p>Olá, {{ user.email }}</p>
     </div>
   </q-page>
 </template>
