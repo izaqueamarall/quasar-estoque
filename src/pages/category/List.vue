@@ -26,15 +26,15 @@
 </template>
 
 <script>
-
-const columns = [
-  { name: 'name', align: 'left', label: 'Nome', field: 'names', sortable: true },
-  { name: 'actions', align: 'right', label: 'Ações', field: 'actions', sortable: true }
-]
-
 import { defineComponent, ref, onMounted } from 'vue'
 import useApi from 'src/composables/UseApi'
 import useNotify from 'src/composables/UseNotify'
+
+const columns = [
+  { name: 'name', align: 'left', label: 'Nome', field: 'name', sortable: true },
+  { name: 'actions', align: 'right', label: 'Ações', field: 'actions', sortable: true }
+]
+
 export default defineComponent({
   name: 'CategoryListPage',
 
