@@ -43,9 +43,12 @@
 import { defineComponent, ref } from 'vue'
 import useAuthUser from 'src/composables/UseAuthUser'
 import useNotify from 'src/composables/UseNotify'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   setup () {
+    const router = useRouter()
+
     const { sendPasswordRestEmail } = useAuthUser()
 
     const { notifyError, notifySucess } = useNotify()
@@ -56,6 +59,7 @@ export default defineComponent({
       try {
         await sendPasswordRestEmail(email.value)
         notifySucess(`E-mail de redefinição de senha enviado para: ${email.value}`)
+        router.push({ name: 'login' })
       } catch (error) {
         notifyError(error.message)
       }
