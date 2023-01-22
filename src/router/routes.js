@@ -1,5 +1,6 @@
 
 const routes = [
+  // ROTAS PÚBLICAS
   {
     path: '/',
     component: () => import('layouts/LoginLayout.vue'),
@@ -13,6 +14,7 @@ const routes = [
 
     ]
   },
+  // ROTAS PRIVADAS
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
@@ -20,19 +22,14 @@ const routes = [
       { path: 'me', name: 'me', component: () => import('pages/Me.vue') },
       { path: 'category', name: 'category', component: () => import('pages/category/List.vue') },
       { path: 'form-category/:id?', name: 'form-category', component: () => import('pages/category/Form.vue') }
-      // { path: '', component: () => import('pages/IndexPage.vue') }
     ],
     meta: {
       requiresAuth: true
     }
   },
-
-  // Always leave this as last one,
-  // but you can also remove it
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue')
   }
 ]
-
 export default routes
