@@ -66,7 +66,7 @@ export default defineComponent({
     const router = useRouter()
     const { register } = useAuthUser()
 
-    const { notifyError, notifySucess } = useNotify()
+    const { notifyError, notifySuccess } = useNotify()
 
     const form = ref({
       name: '',
@@ -77,7 +77,7 @@ export default defineComponent({
     const handleRegister = async () => {
       try {
         await register(form.value)
-        notifySucess()
+        notifySuccess()
         router.push({
           name: 'email-confirmation',
           query: { email: form.value.email }

@@ -36,7 +36,7 @@ export default defineComponent({
   setup () {
     const { resetPassword } = useAuthUser()
 
-    const { notifyError, notifySucess } = useNotify()
+    const { notifyError, notifySuccess } = useNotify()
 
     const route = useRoute()
     const router = useRouter()
@@ -47,7 +47,7 @@ export default defineComponent({
     const handlePasswordReset = async () => {
       try {
         await resetPassword(token, password.value)
-        notifySucess('Senha recuperada com sucesso!')
+        notifySuccess('Senha recuperada com sucesso!')
         router.push({ name: 'login' })
       } catch (error) {
         notifyError(error.message)

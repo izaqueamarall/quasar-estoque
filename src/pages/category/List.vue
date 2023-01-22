@@ -6,11 +6,11 @@
                     <template v-slot:top>
                         <span class="text-h6">Categoria</span>
                         <q-space />
-                        <q-btn label="Adicionar Novo" color="primary" dense />
+                        <q-btn label="Adicionar Novo" color="primary" icon="mdi-plus" dense :to="{name: 'form-category'}" />
                     </template>
                     <template v-slot:body-cell-actions="props">
                         <q-td :props="props" class="q-gutter-x-sm">
-                            <q-btn icon="mdi-pencil-outline" color="info" dense size="sm">
+                            <q-btn icon="mdi-pencil-outline" color="info" dense size="sm" @click="handleEdit(props.row)">
                                 <q-tooltip>EDITAR</q-tooltip>
                             </q-btn>
                             <q-btn icon="mdi-delete-outline" color="negative" dense size="sm">
@@ -29,6 +29,7 @@
 import { defineComponent, ref, onMounted } from 'vue'
 import useApi from 'src/composables/UseApi'
 import useNotify from 'src/composables/UseNotify'
+import { useRouter } from 'vue-router'
 
 const columns = [
   { name: 'name', align: 'left', label: 'Nome', field: 'name', sortable: true },
@@ -43,6 +44,7 @@ export default defineComponent({
     const loading = ref(true)
     const { list } = useApi()
     const { notifyError } = useNotify()
+    const router = useRouter()
 
     const handleListCategories = async () => {
       try {
@@ -54,6 +56,10 @@ export default defineComponent({
       }
     }
 
+    const handleEdit = (category) => {
+      router.push({ name: 'form-category', params: { id: category.id } })
+    }
+
     onMounted(() => {
       handleListCategories()
     })
@@ -61,7 +67,8 @@ export default defineComponent({
     return {
       columns,
       categories,
-      loading
+      loading,
+      handleEdit
     }
   }
 

@@ -76,7 +76,7 @@ export default defineComponent({
 
     const { login, isLoggedIn } = useAuthUser()
 
-    const { notifyError, notifySucess } = useNotify()
+    const { notifyError, notifySuccess } = useNotify()
 
     const form = ref({
       email: '',
@@ -92,7 +92,7 @@ export default defineComponent({
     const handleLogin = async () => {
       try {
         await login(form.value)
-        notifySucess('Login realizado com sucesso!')
+        notifySuccess('Login realizado com sucesso!')
         router.replace({ name: 'me' })
       } catch (error) {
         notifyError(error.message)

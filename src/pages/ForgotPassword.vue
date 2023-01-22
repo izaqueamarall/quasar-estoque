@@ -51,14 +51,14 @@ export default defineComponent({
 
     const { sendPasswordRestEmail } = useAuthUser()
 
-    const { notifyError, notifySucess } = useNotify()
+    const { notifyError, notifySuccess } = useNotify()
 
     const email = ref('')
 
     const handleForgotPassword = async () => {
       try {
         await sendPasswordRestEmail(email.value)
-        notifySucess(`E-mail de redefinição de senha enviado para: ${email.value}`)
+        notifySuccess(`E-mail de redefinição de senha enviado para: ${email.value}`)
         router.push({ name: 'login' })
       } catch (error) {
         notifyError(error.message)
