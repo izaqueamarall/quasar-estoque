@@ -52,10 +52,16 @@ const linksList = [
     routeName: 'me'
   },
   {
-    title: 'Categoria',
+    title: 'Categorias',
     caption: '',
     icon: 'mdi-shape-outline',
     routeName: 'category'
+  },
+  {
+    title: 'Produtos',
+    caption: '',
+    icon: 'mdi-archive',
+    routeName: 'product'
   }
 ]
 
@@ -82,7 +88,9 @@ export default defineComponent({
         cancel: true,
         persistent: true
       }).onOk(async () => {
+        $q.loading.show({})
         await logout()
+        $q.loading.hide()
         router.replace({ name: 'login' })
       })
     }

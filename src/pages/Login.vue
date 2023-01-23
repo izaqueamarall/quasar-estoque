@@ -68,6 +68,7 @@ import { defineComponent, ref, onMounted } from 'vue'
 import useAuthUser from 'src/composables/UseAuthUser'
 import { useRouter } from 'vue-router'
 import useNotify from 'src/composables/UseNotify'
+import { useQuasar } from 'quasar'
 export default defineComponent({
   name: 'LoginPage',
 
@@ -76,7 +77,9 @@ export default defineComponent({
 
     const { login, isLoggedIn } = useAuthUser()
 
-    const { notifyError, notifySuccess } = useNotify()
+    const $q = useQuasar()
+
+    const { notifyError } = useNotify()
 
     const form = ref({
       email: '',
@@ -91,8 +94,11 @@ export default defineComponent({
 
     const handleLogin = async () => {
       try {
+        $q.loading.show({ })
         await login(form.value)
-        notifySuccess('Login realizado com sucesso!')
+        $q.loading.hide()
+
+        // notifySuccess('Login realizado com sucesso!')
         router.replace({ name: 'me' })
       } catch (error) {
         notifyError(error.message)
