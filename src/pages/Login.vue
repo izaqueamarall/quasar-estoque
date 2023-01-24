@@ -7,7 +7,7 @@
 
         <div class="col-md-10 col-sm-9 col-xs-11 q-gutter-y-md">
           <q-input
-          label="Email"
+          label="E-mail"
           v-model="form.email"
           lazy-rules
           :rules="[val => (val && val.length > 0) || 'Por favor informe seu e-mail']"
@@ -15,7 +15,7 @@
           />
 
           <q-input
-          label="Password"
+          label="Senha"
           v-model="form.password"
           lazy-rules
           :rules="[val => (val && val.length > 0) || 'Por favor informe sua senha']"
