@@ -101,6 +101,7 @@ export default defineComponent({
         // notifySuccess('Login realizado com sucesso!')
         router.replace({ name: 'me' })
       } catch (error) {
+        $q.loading.hide()
         notifyError(error.message)
         // alert(error.message)
       }
